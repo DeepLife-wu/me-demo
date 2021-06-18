@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wish.review.dao.WorkflowBusinessDao" >
+  <resultMap id="BaseResultMap" type="com.wish.review.entity.WorkflowBusiness" >
+    <id column="workflow_business_id" property="workflowBusinessId" jdbcType="INTEGER" />
+    <result column="workflow_id" property="workflowId" jdbcType="INTEGER" />
+    <result column="curr_node" property="currNode" jdbcType="INTEGER" />
+    <result column="last_node" property="lastNode" jdbcType="INTEGER" />
+    <result column="workflow_status" property="workflowStatus" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+    <result column="deal_user" property="dealUser" jdbcType="VARCHAR" />
+    <result column="workflow_is_over" property="workflowIsOver" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    workflow_business_id, workflow_id, curr_node, last_node, workflow_status, business_id, 
+    business_type, deal_user, workflow_is_over, create_user, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_workflow_business
+    where workflow_business_id = #{workflowBusinessId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_workflow_business
+    where workflow_business_id = #{workflowBusinessId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wish.review.entity.WorkflowBusiness"
+          useGeneratedKeys="true" keyProperty="workflowBusinessId">
+    insert into t_workflow_business (workflow_business_id, workflow_id, curr_node, 
+      last_node, workflow_status, business_id, 
+      business_type, deal_user, workflow_is_over, 
+      create_user, create_time)
+    values (#{workflowBusinessId,jdbcType=INTEGER}, #{workflowId,jdbcType=INTEGER}, #{currNode,jdbcType=INTEGER}, 
+      #{lastNode,jdbcType=INTEGER}, #{workflowStatus,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, 
+      #{businessType,jdbcType=VARCHAR}, #{dealUser,jdbcType=VARCHAR}, #{workflowIsOver,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wish.review.entity.WorkflowBusiness"
+          useGeneratedKeys="true" keyProperty="workflowBusinessId">
+    insert into t_workflow_business
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="workflowBusinessId != null" >
+        workflow_business_id,
+      </if>
+      <if test="workflowId != null" >
+        workflow_id,
+      </if>
+      <if test="currNode != null" >
+        curr_node,
+      </if>
+      <if test="lastNode != null" >
+        last_node,
+      </if>
+      <if test="workflowStatus != null" >
+        workflow_status,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="dealUser != null" >
+        deal_user,
+      </if>
+      <if test="workflowIsOver != null" >
+        workflow_is_over,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="workflowBusinessId != null" >
+        #{workflowBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="workflowId != null" >
+        #{workflowId,jdbcType=INTEGER},
+      </if>
+      <if test="currNode != null" >
+        #{currNode,jdbcType=INTEGER},
+      </if>
+      <if test="lastNode != null" >
+        #{lastNode,jdbcType=INTEGER},
+      </if>
+      <if test="workflowStatus != null" >
+        #{workflowStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUser != null" >
+        #{dealUser,jdbcType=VARCHAR},
+      </if>
+      <if test="workflowIsOver != null" >
+        #{workflowIsOver,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wish.review.entity.WorkflowBusiness" >
+    update t_workflow_business
+    <set >
+      <if test="workflowId != null" >
+        workflow_id = #{workflowId,jdbcType=INTEGER},
+      </if>
+      <if test="currNode != null" >
+        curr_node = #{currNode,jdbcType=INTEGER},
+      </if>
+      <if test="lastNode != null" >
+        last_node = #{lastNode,jdbcType=INTEGER},
+      </if>
+      <if test="workflowStatus != null" >
+        workflow_status = #{workflowStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUser != null" >
+        deal_user = #{dealUser,jdbcType=VARCHAR},
+      </if>
+      <if test="workflowIsOver != null" >
+        workflow_is_over = #{workflowIsOver,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where workflow_business_id = #{workflowBusinessId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wish.review.entity.WorkflowBusiness" >
+    update t_workflow_business
+    set workflow_id = #{workflowId,jdbcType=INTEGER},
+      curr_node = #{currNode,jdbcType=INTEGER},
+      last_node = #{lastNode,jdbcType=INTEGER},
+      workflow_status = #{workflowStatus,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      deal_user = #{dealUser,jdbcType=VARCHAR},
+      workflow_is_over = #{workflowIsOver,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where workflow_business_id = #{workflowBusinessId,jdbcType=INTEGER}
+  </update>
+
+  <select id="lockByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_workflow_business
+    where workflow_business_id = #{workflowBusinessId,jdbcType=INTEGER}
+    for update
+  </select>
+</mapper>

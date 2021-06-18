@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wish.review.dao.WorkflowBusinessHistoryDao" >
+  <resultMap id="BaseResultMap" type="com.wish.review.entity.WorkflowBusinessHistory" >
+    <id column="history_id" property="historyId" jdbcType="INTEGER" />
+    <result column="workflow_business_id" property="workflowBusinessId" jdbcType="INTEGER" />
+    <result column="curr_node_id" property="currNodeId" jdbcType="VARCHAR" />
+    <result column="next_node_id" property="nextNodeId" jdbcType="VARCHAR" />
+    <result column="node_action" property="nodeAction" jdbcType="VARCHAR" />
+    <result column="deal_user_id" property="dealUserId" jdbcType="VARCHAR" />
+    <result column="deal_user_name" property="dealUserName" jdbcType="VARCHAR" />
+    <result column="deal_time" property="dealTime" jdbcType="VARCHAR" />
+    <result column="deal_step" property="dealStep" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="CHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.wish.review.entity.WorkflowBusinessHistory" extends="BaseResultMap" >
+    <result column="suggestion_feedback" property="suggestionFeedback" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    history_id, workflow_business_id, curr_node_id, next_node_id, node_action, deal_user_id, 
+    deal_user_name, deal_time, deal_step, create_time, create_user
+  </sql>
+  <sql id="Blob_Column_List" >
+    suggestion_feedback
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_workflow_business_history
+    where history_id = #{historyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_workflow_business_history
+    where history_id = #{historyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wish.review.entity.WorkflowBusinessHistory"
+          useGeneratedKeys="true" keyProperty="historyId">
+    insert into t_workflow_business_history (history_id, workflow_business_id, curr_node_id, 
+      next_node_id, node_action, deal_user_id, 
+      deal_user_name, deal_time, deal_step, 
+      create_time, create_user, suggestion_feedback
+      )
+    values (#{historyId,jdbcType=INTEGER}, #{workflowBusinessId,jdbcType=INTEGER}, #{currNodeId,jdbcType=VARCHAR}, 
+      #{nextNodeId,jdbcType=VARCHAR}, #{nodeAction,jdbcType=VARCHAR}, #{dealUserId,jdbcType=VARCHAR}, 
+      #{dealUserName,jdbcType=VARCHAR}, #{dealTime,jdbcType=VARCHAR}, #{dealStep,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=CHAR}, #{createUser,jdbcType=VARCHAR}, #{suggestionFeedback,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wish.review.entity.WorkflowBusinessHistory"
+          useGeneratedKeys="true" keyProperty="historyId">
+    insert into t_workflow_business_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="historyId != null" >
+        history_id,
+      </if>
+      <if test="workflowBusinessId != null" >
+        workflow_business_id,
+      </if>
+      <if test="currNodeId != null" >
+        curr_node_id,
+      </if>
+      <if test="nextNodeId != null" >
+        next_node_id,
+      </if>
+      <if test="nodeAction != null" >
+        node_action,
+      </if>
+      <if test="dealUserId != null" >
+        deal_user_id,
+      </if>
+      <if test="dealUserName != null" >
+        deal_user_name,
+      </if>
+      <if test="dealTime != null" >
+        deal_time,
+      </if>
+      <if test="dealStep != null" >
+        deal_step,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="suggestionFeedback != null" >
+        suggestion_feedback,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="historyId != null" >
+        #{historyId,jdbcType=INTEGER},
+      </if>
+      <if test="workflowBusinessId != null" >
+        #{workflowBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="currNodeId != null" >
+        #{currNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nextNodeId != null" >
+        #{nextNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeAction != null" >
+        #{nodeAction,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUserId != null" >
+        #{dealUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUserName != null" >
+        #{dealUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="dealTime != null" >
+        #{dealTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dealStep != null" >
+        #{dealStep,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestionFeedback != null" >
+        #{suggestionFeedback,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wish.review.entity.WorkflowBusinessHistory" >
+    update t_workflow_business_history
+    <set >
+      <if test="workflowBusinessId != null" >
+        workflow_business_id = #{workflowBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="currNodeId != null" >
+        curr_node_id = #{currNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nextNodeId != null" >
+        next_node_id = #{nextNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeAction != null" >
+        node_action = #{nodeAction,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUserId != null" >
+        deal_user_id = #{dealUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUserName != null" >
+        deal_user_name = #{dealUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="dealTime != null" >
+        deal_time = #{dealTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dealStep != null" >
+        deal_step = #{dealStep,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestionFeedback != null" >
+        suggestion_feedback = #{suggestionFeedback,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where history_id = #{historyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wish.review.entity.WorkflowBusinessHistory" >
+    update t_workflow_business_history
+    set workflow_business_id = #{workflowBusinessId,jdbcType=INTEGER},
+      curr_node_id = #{currNodeId,jdbcType=VARCHAR},
+      next_node_id = #{nextNodeId,jdbcType=VARCHAR},
+      node_action = #{nodeAction,jdbcType=VARCHAR},
+      deal_user_id = #{dealUserId,jdbcType=VARCHAR},
+      deal_user_name = #{dealUserName,jdbcType=VARCHAR},
+      deal_time = #{dealTime,jdbcType=VARCHAR},
+      deal_step = #{dealStep,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      suggestion_feedback = #{suggestionFeedback,jdbcType=LONGVARCHAR}
+    where history_id = #{historyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wish.review.entity.WorkflowBusinessHistory" >
+    update t_workflow_business_history
+    set workflow_business_id = #{workflowBusinessId,jdbcType=INTEGER},
+      curr_node_id = #{currNodeId,jdbcType=VARCHAR},
+      next_node_id = #{nextNodeId,jdbcType=VARCHAR},
+      node_action = #{nodeAction,jdbcType=VARCHAR},
+      deal_user_id = #{dealUserId,jdbcType=VARCHAR},
+      deal_user_name = #{dealUserName,jdbcType=VARCHAR},
+      deal_time = #{dealTime,jdbcType=VARCHAR},
+      deal_step = #{dealStep,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=CHAR},
+      create_user = #{createUser,jdbcType=VARCHAR}
+    where history_id = #{historyId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wish.review.dao.WorkflowNodeActionDao" >
+  <resultMap id="BaseResultMap" type="com.wish.review.entity.WorkflowNodeAction" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="workflow_id" property="workflowId" jdbcType="INTEGER" />
+    <result column="node_id" property="nodeId" jdbcType="INTEGER" />
+    <result column="action" property="action" jdbcType="VARCHAR" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, workflow_id, node_id, action, action_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_workflow_node_action
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_workflow_node_action
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wish.review.entity.WorkflowNodeAction"
+          useGeneratedKeys="true" keyProperty="id">
+    insert into t_workflow_node_action (id, workflow_id, node_id, 
+      action, action_name)
+    values (#{id,jdbcType=INTEGER}, #{workflowId,jdbcType=INTEGER}, #{nodeId,jdbcType=INTEGER}, 
+      #{action,jdbcType=VARCHAR}, #{actionName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wish.review.entity.WorkflowNodeAction"
+          useGeneratedKeys="true" keyProperty="id">
+    insert into t_workflow_node_action
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="workflowId != null" >
+        workflow_id,
+      </if>
+      <if test="nodeId != null" >
+        node_id,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+      <if test="actionName != null" >
+        action_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="workflowId != null" >
+        #{workflowId,jdbcType=INTEGER},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=INTEGER},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wish.review.entity.WorkflowNodeAction" >
+    update t_workflow_node_action
+    <set >
+      <if test="workflowId != null" >
+        workflow_id = #{workflowId,jdbcType=INTEGER},
+      </if>
+      <if test="nodeId != null" >
+        node_id = #{nodeId,jdbcType=INTEGER},
+      </if>
+      <if test="action != null" >
+        action = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        action_name = #{actionName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wish.review.entity.WorkflowNodeAction" >
+    update t_workflow_node_action
+    set workflow_id = #{workflowId,jdbcType=INTEGER},
+      node_id = #{nodeId,jdbcType=INTEGER},
+      action = #{action,jdbcType=VARCHAR},
+      action_name = #{actionName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
